@@ -1,0 +1,7 @@
+name: 'Configuration Split Distro'
+type: module
+description: 'Provide configuration splits for use in distributions.'
+package: Config
+core: 8.x
+dependencies:
+  - config_split

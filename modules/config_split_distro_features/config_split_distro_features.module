@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Provides Features integration for Configuration Split.
+ */
+
+/**
+ * Implements hook_features_assignment_methods_alter().
+ *
+ * @todo: Revisit, as this will prevent standard features from working as
+ * expected.
+ */
+function config_split_distro_features_features_assignment_methods_alter(array &$definitions) {
+  // We don't want to strip out the 'core' and 'uuid' keys.
+  unset($definitions['alter']);
+  // Optional config is not supported by splits.
+  unset($definitions['optional']);
+}
+
+/**
+ * Implements hook_features_generation_methods_alter().
+ *
+ * @todo: Revisit, as this will prevent standard features from working as
+ * expected.
+ */
+function config_split_distro_features_features_generation_methods_alter(array &$definitions) {
+  // Swap in our plugin classes.
+  $definitions['archive']['class'] = 'Drupal\config_split_distro_features\Plugin\FeaturesGeneration\ConfigSplitDistroFeaturesGenerationArchive';
+  $definitions['write']['class'] = 'Drupal\config_split_distro_features\Plugin\FeaturesGeneration\ConfigSplitDistroFeaturesGenerationWrite';
+}
